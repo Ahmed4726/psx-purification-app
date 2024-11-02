@@ -16,11 +16,11 @@ use App\Http\Controllers\PurificationController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/stocks', [StockController::class, 'index'])->name('stocks.index');
+Route::get('/', [StockController::class, 'index'])->name('stocks.index');
 
 Route::post('/stocks/import', [StockController::class, 'import'])->name('stocks.import');
 Route::get('/stocks/search', [StockController::class, 'search'])->name('stocks.search');
