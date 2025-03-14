@@ -56,6 +56,8 @@
             width: '100%' // Ensure it matches the form-control style
         });
 
+        // $('#stock_id').addClass('form-control');
+
         // Enforce only one of Capital Gain or Dividend is entered
         $('#capital_gain, #dividend').on('input', function() {
             if ($(this).val() !== '') {

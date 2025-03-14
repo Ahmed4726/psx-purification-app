@@ -50,8 +50,22 @@ class StockController extends Controller
             'file' => 'required|mimes:xlsx',
         ]);
 
-        Excel::import(new StocksImport, $request->file('file'));
+        if (!$request->hasFile('file')) {
+            return redirect()->back()->with('error', 'No file was uploaded.');
+        }
 
-        return redirect()->back()->with('success', 'Stocks imported successfully!');
+        // Delete all existing records in the StockImport model
+        Stock::truncate();
+
+        // Store in public/uploads directory
+        $fileName = time() . '.' . $request->file('file')->getClientOriginalExtension();
+        $filePath = $request->file('file')->move(public_path('uploads'), $fileName);
+
+        // Import new data
+        Excel::import(new StocksImport, $filePath->getRealPath());
+
+        return redirect()->back()->with('success', 'Previous stock data deleted and new stocks imported successfully!');
     }
+
+
 }

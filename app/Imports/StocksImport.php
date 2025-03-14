@@ -9,6 +9,7 @@ class StocksImport implements ToModel
 {
     public function model(array $row)
     {
+        // dd($row);
         // Assuming the Excel columns align with the order in the screenshot:
         return new Stock([
             'ticker' => $row[0],
